@@ -1,1 +1,635 @@
-# ssj
+<!DOCTYPE html>
+<html lang="es
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Página de Matador, La leyenda y shara bullet</title>
+ <style>
+ /* Estilos generales */
+ * {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ font-family: 'Arial', sans-serif;
+ }
+ body {
+ background: linear-gradient(135deg, #2c0055, #6a0dad);
+ color: green;
+ position: relative;
+ overflow-x: hidden;
+ min-height: 100vh;
+ }
+ /* Animación de luces */
+ .light {
+ position: absolute;
+ border-radius: 50%;
+ filter: blur(10px);
+ opacity: 0;
+ animation: twinkle 4s infinite;
+ z-index: 0;
+ }
+ @keyframes twinkle {
+ 0% { opacity: 0; transform: scale(0.5); }
+ 50% { opacity: 0.8; transform: scale(1); }
+ 100% { opacity: 0; transform: scale(0.5); }
+ }
+ /* Contenido principal */
+ .container {
+ position: relative;
+ z-index: 1;
+ max-width: 1200px;
+ margin: 0 auto;
+ padding: 20px;
+ }
+ /* Header */
+ header {
+ text-align: center;
+ padding: 20px 0;
+ background-color: rgba(177, 144, 1670, 0.8);
+ border-radius: 10px;
+ margin-bottom: 20px;
+ box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+ }
+ header h1 {
+ font-size: 2.5rem;
+ margin-bottom: 10px;
+ text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+ }
+ /* Menú de navegación */
+ nav {
+ background-color: rgba(106, 13, 173, 0.8);
+ border-radius: 10px;
+ margin-bottom: 20px;
+ box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+ }
+ .menu {
+ list-style-type: none;
+ display: flex;
+ justify-content: space-around;
+ flex-wrap: wrap;
+ padding: 15px;
+ }
+ .menu li a {
+ color: white;
+ text-decoration: none;
+ padding: 10px 20px;
+ border-radius: 5px;
+ transition: all 0.3s;
+ font-weight: bold;
+ }
+ .menu li a:hover {
+ background-color: rgba(255, 255, 255, 0.2);
+ text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+ transform: translateY(-3px);
+ }
+ /* Secciones */
+ .section {
+ background-color: rgba(106, 13, 173, 0.5);
+ border-radius: 10px;
+ padding: 30px;
+ margin-bottom: 30px;
+ box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+ display: none;
+ }
+ .section.active {
+ display: block;
+ animation: fadeIn 0.5s ease-in-out;
+ }
+ @keyframes fadeIn {
+ from { opacity: 0; transform: translateY(20px); }
+ to { opacity: 1; transform: translateY(0); }
+ }
+ .section h2 {
+ margin-bottom: 20px;
+ color: #e6c3ff;
+ text-shadow: 0 0 10px rgba(230, 195, 255, 0.5);
+ border-bottom: 2px solid #e6c3ff;
+ padding-bottom: 10px;
+ }
+ /* Estilo para el logo en la sección Inicio */
+ .logo-container{
+ text-align: center;
+ margin: 30px 0;
+ padding: 20px;
+ background-color: rgba(255, 255, 255, 0.1);
+ border-radius: 10px;
+ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+ 
+ }
+ .logo-image {
+ max-width: 100%;
+ height: auto;
+ max-height: 200px;
+ border-radius: 8px;
+ border: 2px solid #e6c3ff;
+ transition: transform 0.3s ease;
+ 
+ }
+ .logo-image:hover {
+ transform: scale(1.03);
+ }
+ @media (max-width: 768px) {
+ .logo-image {
+ max-height: 150px;
+ }
+ /* Login */
+ .login-form {
+ max-width: 400px;
+ margin: 0 auto;
+ background-color: rgba(255, 255, 255, 0.1);
+ padding: 30px;
+ border-radius: 10px;
+ box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+ }
+ .form-group {
+ margin-bottom: 20px;
+ }
+ .form-group label {
+ display: block;
+ margin-bottom: 8px;
+ font-weight: bold;
+ }
+ .form-group input {
+ width: 100%;
+ padding: 12px;
+ border: none;
+ border-radius: 5px;
+ background-color: rgba(255, 255, 255, 0.9);
+ font-size: 16px;
+ }
+ .login-btn {
+ background-color: #9b30ff;
+ color: white;
+ border: none;
+ padding: 12px 25px;
+ border-radius: 5px;
+ cursor: pointer;
+ font-size: 16px;
+ font-weight: bold;
+ transition: all 0.3s;
+ width: 100%;
+ }
+ .login-btn:hover {
+ background-color: #bf3eff;
+ transform: translateY(-3px);
+ box-shadow: 0 5px 15px rgba(155, 48, 255, 0.4);
+ }
+ .error-message {
+ color: #ff6b6b;
+ margin-top: 10px;
+ text-align: center;
+ font-weight: bold;
+ display: none;
+ }
+ /* Perfil */
+ .profile {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 30px;
+ align-items: center;
+ }
+ .profile-image {
+ flex: 1;
+ min-width: 250px;
+ text-align: center;
+ }
+ .profile-image img {
+ max-width: 100%;
+ border-radius: 10px;
+ box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+ border: 3px solid #e6c3ff;
+ }
+ .profile-info {
+ flex: 2;
+ min-width: 300px;
+ }
+ .profile-info h3 {
+ margin-bottom: 15px;
+ color: #d896ff;
+ }
+ .profile-info p {
+ margin-bottom: 15px;
+ line-height: 1.6;
+ }
+ /* PEC - Actividades */
+ .activities {
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+ gap: 20px;
+ }
+ .activity-card {
+ background-color: rgba(255, 255, 255, 0.1);
+ border-radius: 10px;
+ padding: 20px;
+ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+ transition: all 0.3s;
+ }
+ .activity-card:hover {
+ transform: translateY(-5px);
+ box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+ background-color: rgba(255, 255, 255, 0.15);
+ }
+ .activity-card h3 {
+ color: #d896ff;
+ margin-bottom: 10px;
+ border-bottom: 1px solid #d896ff;
+ padding-bottom: 5px;
+ }
+ .activity-card p {
+ margin-bottom: 10px;
+ line-height: 1.5;
+ }
+ .activity-card .date {
+ font-size: 0.9rem;
+ color: #bf3eff;
+ font-weight: bold;
+ }
+ /* Nuevo estilo para el contenedor de imágenes en PEC */
+ .image-gallery {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+ gap: 15px;
+ margin-top: 15px;
+ }
+ .image-gallery img {
+ width: 100%;
+ height: auto;
+ border-radius: 8px;
+ border: 2px solid #e6c3ff;
+ transition: transform 0.3s ease;
+ }
+ .image-gallery img:hover {
+ transform: scale(1.03);
+ }
+ /* Museo Virtual */
+ .museum-items {
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+ gap: 20px;
+ }
+ .museum-item {
+ background-color: rgba(255, 255, 255, 0.1);
+ border-radius: 10px;
+ padding: 15px;
+ text-align: center;
+ transition: all 0.3s;
+ }
+ .museum-item:hover {
+ transform: scale(1.05);
+ box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+ }
+ .museum-item img {
+ max-width: 100%;
+ height: 150px;
+ object-fit: cover;
+ border-radius: 5px;
+ margin-bottom: 10px;
+ border: 2px solid #e6c3ff;
+ }
+ /* Video */
+ .video-container {
+ position: relative;
+ padding-bottom: 56.25%; /* 16:9 */
+ height: 0;
+ overflow: hidden;
+ margin: 30px 0;
+ border-radius: 10px;
+ box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+ }
+ .video-container iframe {
+ position: absolute;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 100%;
+ border: none;
+ }
+ .video-description {
+ background-color: rgba(255, 255, 255, 0.1);
+ padding: 20px;
+ border-radius: 10px;
+ margin-top: 20px;
+ line-height: 1.6;
+ }
+ /* Footer */
+ footer {
+ text-align: center;
+ padding: 20px;
+ background-color: rgba(106, 13, 173, 0.8);
+ border-radius: 10px;
+ margin-top: 30px;
+ }
+ /* Responsive */
+ @media (max-width: 768px) {
+ .menu {
+ flex-direction: column;
+ align-items: center;
+ }
+ 
+ .menu li {
+ margin-bottom: 10px;
+ }
+ 
+ .profile {
+ flex-direction: column;
+ }
+ 
+ .profile-image, .profile-info {
+ min-width: 100%;
+ }
+ .image-gallery {
+ grid-template-columns: 1fr;
+ }
+ 
+ </style>
+ </head>
+ <body>
+ <!-- Luces animadas -->
+ <div id="lights-container"></div>
+ <div class="container">
+ <header>
+ <h1>Página  de Matador, La leyenda y shara bullet</h1>
+ <p>Matador, la leyenda y Shara bullet - Páginas Web - CEB 5/4</p>
+ </header>
+ <nav>
+ <ul class="menu">
+ <li><a href="#" onclick="showSection('inicio')">Inicio</a></li>
+ <li><a href="#" onclick="showSection('login')">iniciar sesion</a></li>
+ <li><a href="#" onclick="showSection('perfil')"
+class="restricted">Perfil</a></li>
+ <li><a href="#" onclick="showSection('pec')"
+class="restricted">PEC</a></li>
+ <li><a href="#" onclick="showSection('museo')"
+class="restricted">Museo Virtual</a></li>
+ <li><a href="#" onclick="showSection('video')"
+class="restricted">Video</a></li>
+ </ul>
+ </nav>
+ <!-- Sección Inicio -->
+ <section id="inicio" class="section active">
+ <h2>Bienvenido a Nuestra Página Web</h2>
+ <p>Esta página fue creada por matador,la leyenda y shara bullet como proyecto final para
+la materia de Páginas Web en el Centro de Estudios de Bachillerato 5/4.</p>
+ <p>Aquí encontrarás información sobre nosotras, nuestras actividades
+académicas, proyectos realizados y más.</p>
+ <div class="logo-container">
+ <img src="img/logotipo.PNG" alt="Logo de matador, la leyenda y shara bullet"
+class="logotipo-image">
+ </div>
+ </section>
+ <!-- Sección Login -->
+ <section id="login" class="section">
+ <h2>Acceso al Contenido</h2>
+ <div class="login-form">
+ <div class="form-group">
+ <label for="username">Usuario:</label>
+ <input type="text" id="username" placeholder="Ingresa tu usuario">
+ </div>
+ <div class="form-group">
+ <label for="password">Contraseña:</label>
+ <input type="password" id="password" placeholder="Ingresa tu
+contraseña">
+ </div>
+ <button class="login-btn" onclick="login()">Ingresar</button>
+ <div class="error-message" id="error-message">Usuario o contraseña
+incorrectos</div>
+ </div>
+ </section>
+ <!-- Sección Perfil -->
+ <section id="perfil" class="section">
+ <h2>Perfil de las Estudiantes</h2>
+ <div class="profile">
+ <div class="profile-image">
+ <img
+src="https://via.placeholder.com/300x400/6a0dad/ffffff?text=Annette"
+alt="Annette">
+ </div>
+ <div class="profile-info">
+ <h3>Annette</h3>
+ <p><strong>Carrera:</strong> informatica </p>
+ <p><strong>Intereses:</strong>programación , animacion y aprender
+nuevas tecnicas en diseño web</p>
+ <p><strong>Hobbies:</strong> voleibol, maquillaje y aprender nuevas
+tecnologías</p>
+ <p><strong>Objetivos:</strong> Desarrollar habilidades técnicas en
+programación y diseño para aplicarlas en proyectos creativos.</p>
+ </div>
+ </div>
+ 
+ <div class="profile" style="margin-top: 40px;">
+ <div class="profile-image">
+ <img
+src="https://via.placeholder.com/300x400/9b30ff/ffffff?text=Alondra" alt="Alondra">
+ </div>
+ <div class="profile-info">
+ <h3>Alondra</h3>
+ <p><strong>Carrera:</strong> informatica </p>
+ <p><strong>Intereses:</strong> Diseño gráfico, dibujo digital,
+animaciony y aprender nuevas tecnicas en paginas web</p>
+ <p><strong>Hobbies:</strong> Dibujo , música y diseñar. </p>
+ <p><strong>Objetivos:</strong> Combinar habilidades artísticas con
+conocimientos técnicos para crear experiencias digitales innovadoras.</p>
+ </div>
+ </div>
+ </section>
+ <!-- Sección PEC -->
+ <section id="pec" class="section">
+ <h2>Actividades del Programa de Estudio Curricular</h2>
+ <div class="activities">
+ <div class="activity-card">
+ <h3>PRIMER PARCIAL</h3>
+ <p class="date">FECHA: Marzo 2025</p>
+ <p>PEC-En el primer proyecto creamos una reseña critica de nuestro
+taller (voleibol - dibujo y pintura).</p>
+ <div class="image-gallery">
+ <img src="img/PEC2.PNG" alt="Primer proyecto 1">
+ <img src="img/PEC.PNG" alt="Primer proyecto 2">
+ </div>
+ </div>
+ 
+ <div class="activity-card">
+ <h3>SEGUNDO PARCIAL</h3>
+ <p class="date">FECHA: ABRIL 2025</p>
+ <p>PEC- El segundo proyecto creamos un video sobre la carrera de
+la paz contra las adicciones, donde acudimos a la carrera y caminata que se llevo
+acabo en el estadio revolucion.</p>
+ <div class="video-container">
+ <iframe
+src="https://drive.google.com/file/d/19u6CnKPGw9iz2fr_ccaYHqd4uLnEivdU/view?
+usp=sharing" frameborder="0" allow="accelerometer; autoplay; clipboard-write;
+encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+ </div>
+ </div>
+ 
+ <div class="activity-card">
+ <h3>TERCER PARCIAL</h3>
+ <p class="date">FECHA: MAYO 2025</p>
+ <p>PEC-En el tercer proyecto nos piden incluir fotos de nuestras
+actividades que realizamos en nuestros talleres.</p>
+ <div class="image-gallery">
+ <img src="img/carro.PNG"/>
+ </div>
+ </div>
+ </div> 
+ </section>
+ <!-- Sección Museo Virtual -->
+ <section id="museo" class="section">
+ <h2>Museo Virtual</h2>
+ <p>Explora nuestros museo virtual:</p>
+ <div class="museum-items">
+ <div class="museum-item">
+ <img src="Invitacion.PNG" alt="Proyecto 1">
+ <h3>Invitación</h3>
+ <a href="invitacion.html.svg" target="_blank"><Ver proyecto>
+ <img src="img/invitacion.PNG">
+ </div>
+ <div class="museum-item">
+ <img src="jonathan.PNG" alt="Proyecto 2">
+ <h3>Jonathan</h3>
+ <a href="dibujito.svg" target="_blank"><Ver proyecto>
+ <img src="img/JONATHAN.PNG">
+ </div>
+ <div class="museum-item">
+ <img src="gerardo.PNG" alt="Proyecto 3">
+ <h3>Gerardo</h3>
+ <a href="cat.svg" target="_blank"><Ver proyecto>
+ <img src="img/gerardo.PNG">
+ </div>
+ <div class="museum-item">
+ <img src="manuel.PNG" alt="Proyecto 4">
+ <h3>Manuel</h3>
+ <a href="Manuel.jpeg" target="_blank">Ver proyecto</a>
+ <img src="img/manuel.PNG">
+ </div>
+ </div>
+ </section>
+ <!-- Sección Video -->
+ <section id="video" class="section">
+ <h2>Proyecto de Diseño Digital</h2>
+ <p>Presentamos nuestro proyecto realizado para la materia de Diseño
+Digital:</p>
+ 
+ <div class="video-container">
+ <img src="gif/flor.gif" frameborder="0" allow="accelerometer; autoplay;
+clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+ </div>
+ 
+ <div class="video-description">
+ <h3>Descripción del Proyecto</h3>
+ <p>Este video muestra el proceso de creación de nuestro proyecto final
+para la materia de Diseño Digital.</p>
+ <p>En el video se puede apreciar :</p>
+ <ul style="margin-left: 20px; margin-top: 10px;">
+ <li>El concepto inicial y bocetos</li>
+ <li>Proceso de animacion</li>
+ <li>Aplicación de dibujo </li>
+ </ul>
+ <p style="margin-top: 15px;">El proyecto fue evaluado considerando
+originalidad, técnica y presentación, obteniendo una calificación de 9.5.</p>
+ </div>
+ </section>
+ <footer>
+ <p>© 2025 matador, la leyenda y shara bullet - Centro de Estudios de Bachillerato 5/4</p>
+ <p>Materia: Páginas Web - Docente: Emmanuel Humberto Samperio
+Guzmán</p>
+ </footer>
+ </div>
+ <script>
+ // Generar luces animadas
+ document.addEventListener('DOMContentLoaded', function() {
+ const colors = [
+ '#9b30ff', '#bf3eff', '#d896ff',
+ '#e6c3ff', '#ee82ee', '#da70d6'
+ ];
+ 
+ const container = document.getElementById('lights-container');
+ 
+ function createLight() {
+ const light = document.createElement('div');
+ light.className = 'light';
+ 
+ // Tamaño aleatorio
+ const size = Math.random() * 100 + 50;
+ light.style.width = `${size}px`;
+ light.style.height = `${size}px`;
+ 
+ // Color aleatorio
+ const color = colors[Math.floor(Math.random() * colors.length)];
+ light.style.backgroundColor = color;
+ 
+ // Posición aleatoria
+ light.style.left = `${Math.random() * 100}vw`;
+ light.style.top = `${Math.random() * 100}vh`;
+ 
+ // Retraso de animación aleatorio
+ light.style.animationDelay = `${Math.random() * 4}s`;
+ 
+ container.appendChild(light);
+ 
+ // Eliminar la luz después de la animación para optimizar
+ setTimeout(() => {
+ light.remove();
+ }, 4000);
+ }
+ 
+ // Crear luces continuamente
+ setInterval(createLight, 300);
+ 
+ // Crear algunas luces iniciales
+ for (let i = 0; i < 20; i++) {
+ setTimeout(createLight, i * 150);
+ }
+ 
+ // Ocultar secciones restringidas inicialmente
+ document.querySelectorAll('.restricted').forEach(item => {
+ item.style.display = 'none';
+ });
+ });
+ // Mostrar sección seleccionada
+ function showSection(sectionId) {
+ document.querySelectorAll('.section').forEach(section => {
+ section.classList.remove('active');
+ });
+ document.getElementById(sectionId).classList.add('active');
+ }
+ // Sistema de login
+ let loggedIn = false;
+ function login() {
+ const username = document.getElementById('username').value;
+ const password = document.getElementById('password').value;
+ const errorMessage = document.getElementById('error-message');
+ 
+ // Validación simple (usuario: alumno, contraseña: 1234)
+ if (username === 'alumno' && password === '1234') {
+ loggedIn = true;
+ errorMessage.style.display = 'none';
+ 
+ // Mostrar enlaces restringidos
+ document.querySelectorAll('.restricted').forEach(item => {
+ item.style.display = 'block';
+ });
+ 
+ // Mostrar mensaje de éxito (podría ser un modal en una versión
+mejorada)
+ alert('¡Inicio de sesión exitoso! Ahora puedes acceder a todas las
+secciones.');
+ showSection('perfil');
+ } else {
+ errorMessage.style.display = 'block';
+ }
+ }
+ // Proteger secciones restringidas
+ document.querySelectorAll('.restricted').forEach(link => {
+ link.addEventListener('click', function(e) {
+ if (!loggedIn) {
+ e.preventDefault();
+ showSection('login');
+ document.getElementById('error-message').textContent = 'Debes
+iniciar sesión para acceder a esta sección';
+ document.getElementById('error-message').style.display = 'block';
+ }
+ });
+ });
+ </script>
+</body>
+</htm
